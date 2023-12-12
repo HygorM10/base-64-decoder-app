@@ -23,6 +23,11 @@ export const useLogic = () => {
     setDecodedText(decodedString);
   };
 
+  const clearTextArea = () => {
+    setInputText("");
+    setDecodedText("");
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(decodedText).then(
       function () {
@@ -65,5 +70,6 @@ export const useLogic = () => {
     decodeBase64,
     copyToClipboard,
     copyMessageToClipboard,
+    clearTextArea,
   };
 };

@@ -2,7 +2,8 @@
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { FaCopy } from "react-icons/fa";
+import { FaCopy, FaRegTrashAlt } from "react-icons/fa";
+
 import { LuClipboardCopy } from "react-icons/lu";
 import { ToastContainer } from "react-toastify";
 import { useLogic } from "./useLogic";
@@ -15,6 +16,7 @@ export default function Home() {
     decodeBase64,
     copyToClipboard,
     copyMessageToClipboard,
+    clearTextArea,
   } = useLogic();
 
   return (
@@ -29,12 +31,20 @@ export default function Home() {
             onChange={handleInputChange}
             placeholder="Paste your text here"
           />
-          <button
-            onClick={decodeBase64}
-            className="mt-4 p-2 bg-blue-500 text-white w-[200px] rounded-md"
-          >
-            Decode
-          </button>
+          <div className="flex flex-row">
+            <button
+              onClick={decodeBase64}
+              className="mt-4 mr-2.5 p-2 bg-blue-500 text-white w-[200px] rounded-md"
+            >
+              Decode
+            </button>
+            <button
+              onClick={clearTextArea}
+              className="mt-4 p-2 rounded-md bg-red-500 text-white w-[60px] flex justify-center items-center"
+            >
+              <FaRegTrashAlt />
+            </button>
+          </div>
           <textarea
             className="w-full text-black text-left h-64 overflow-auto whitespace-pre-wrap p-3 mt-4 resize-none"
             value={decodedText}
