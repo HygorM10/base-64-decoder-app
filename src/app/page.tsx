@@ -3,6 +3,7 @@
 import "react-toastify/dist/ReactToastify.css";
 
 import { FaCopy } from "react-icons/fa";
+import { LuClipboardCopy } from "react-icons/lu";
 import { ToastContainer } from "react-toastify";
 import { useLogic } from "./useLogic";
 
@@ -13,6 +14,7 @@ export default function Home() {
     handleInputChange,
     decodeBase64,
     copyToClipboard,
+    copyMessageToClipboard,
   } = useLogic();
 
   return (
@@ -39,13 +41,22 @@ export default function Home() {
             readOnly
             placeholder="Decoded text"
           />
-          <button
-            onClick={copyToClipboard}
-            className="mt-4 p-2 rounded-md bg-blue-500 text-white w-[100px] flex justify-center items-center"
-          >
-            <FaCopy className="mr-2" />
-            Copy
-          </button>
+          <div className="flex flex-row">
+            <button
+              onClick={copyToClipboard}
+              className="mt-4 mr-2.5 p-2 rounded-md bg-blue-500 text-white w-[100px] flex justify-center items-center"
+            >
+              <FaCopy className="mr-2" />
+              Copy
+            </button>
+            <button
+              onClick={copyMessageToClipboard}
+              className="mt-4 p-2 rounded-md bg-blue-500 text-white w-[150px] flex justify-center items-center"
+            >
+              <LuClipboardCopy className="mr-2" />
+              Copy message
+            </button>
+          </div>
         </div>
       </main>
     </>

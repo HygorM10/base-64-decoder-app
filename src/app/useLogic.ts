@@ -15,7 +15,11 @@ export const useLogic = () => {
   };
 
   const decodeBase64 = () => {
-    const decodedString = atob(inputText);
+    const text = window.atob(inputText);
+    const decoder = new TextDecoder("utf-8");
+    const decodedString = decoder.decode(
+      new Uint8Array(text.split("").map((c) => c.charCodeAt(0)))
+    );
     setDecodedText(decodedString);
   };
 
@@ -30,11 +34,36 @@ export const useLogic = () => {
     );
   };
 
+  const copyMessageToClipboard = () => {
+    const message = _extractTextAfterBrace(decodedText);
+    if (message === "") {
+      toast.error("Não foi possível copiar o texto: Mensagem não encontrada");
+      return;
+    }
+    navigator.clipboard.writeText(message).then(
+      function () {
+        toast.success("Mensagem copiada para a área de transferência!");
+      },
+      function (err) {
+        toast.error("Não foi possível copiar o texto: ", err);
+      }
+    );
+  };
+
+  const _extractTextAfterBrace = (input: string) => {
+    const bracePosition = input.indexOf("{");
+    if (bracePosition !== -1) {
+      return input.substring(bracePosition);
+    }
+    return "";
+  };
+
   return {
     inputText,
     decodedText,
     handleInputChange,
     decodeBase64,
     copyToClipboard,
+    copyMessageToClipboard,
   };
 };
